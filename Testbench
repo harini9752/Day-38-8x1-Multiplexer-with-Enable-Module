@@ -1,0 +1,31 @@
+module tb_eight_to_one_mux_with_enable;
+
+  reg [7:0] data_in [0:7];
+  reg [2:0] select;
+  reg enable;
+  wire data_out;
+
+  eight_to_one_mux_with_enable uut (
+    .data_in(data_in),
+    .select(select),
+    .enable(enable),
+    .data_out(data_out)
+  );
+
+  initial begin
+    // Test 1: Multiplexer without enabling
+    enable = 0;
+    select = 3'b010;
+    data_in[2] = 8'b10101010;
+    #10 $display("Time=%0t Enable=%b Select=%b DataOut=%b", $time, enable, select, data_out);
+
+    // Test 2: Multiplexer with enabling
+    enable = 1;
+    #10 $display("Time=%0t Enable=%b Select=%b DataOut=%b", $time, enable, select, data_out);
+
+    // Add more test cases as needed
+
+    $finish;
+  end
+
+endmodule
